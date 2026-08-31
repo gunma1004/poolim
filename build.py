@@ -114,3 +114,6 @@ with open(os.path.join(DIST_DIR, 'robots.txt'), 'w', encoding='utf-8') as f:
     f.write("User-agent: *\nAllow: /\nSitemap: https://poolim.netlify.app/sitemap.xml\n")
 
 print("[3/3] sitemap.xml 및 robots.txt 생성 완료")
+# netlify.toml 파일 자동 생성 (BOM 없는 순수 UTF-8)
+with open('netlify.toml', 'w', encoding='utf-8') as f:
+    f.write('[build]\n  publish = "dist"\n\n[[redirects]]\n  from = "/*"\n  to = "/index.html"\n  status = 200\n')
