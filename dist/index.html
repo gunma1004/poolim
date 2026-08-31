@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>풀림(POOLIM) │ 대전·청주 힐링 스파 & 에스테틱 바디케어 플랫폼</title>
+<meta name="robots" content="index,follow">
+<meta name="title" content="풀림(POOLIM) │ 대전·청주·충청권 테라피 & 바디케어 제휴 정보">
+<meta name="description" content="대전, 청주, 세종, 천안 등 충청·전북 권역의 엄선된 마사지, 스파, 아로마 테라피, 에스테틱 힐링샵 정보를 한눈에 비교하고 확인해보세요.">
+<meta name="keywords" content="대전마사지, 청주마사지, 세종마사지, 천안마사지, 아로마테라피, 스웨디시, 스파, 에스테틱, 바디케어, 풀림">
+<link rel="canonical" href="https://poolim.netlify.app/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="풀림(POOLIM)">
+<meta property="og:title" content="풀림(POOLIM) │ 대전·청주·충청권 힐링 스파 & 바디케어">
+<meta property="og:description" content="대전, 청주, 세종 및 충청 전지역 엄선된 마사지·에스테틱 제휴 안내.">
+<meta property="og:url" content="https://poolim.netlify.app/">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  :root { --main-color: #2e64e5; --dark-bg: #22252a; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif; background: #f8f9fa; color: #333; }
+  .nt-container { max-width: 1200px; margin: 0 auto; }
+  .main-hero { background: linear-gradient(135deg, #1f3c88 0%, #2e64e5 100%); color: #fff; padding: 45px 20px; text-align: center; }
+  
+  /* 지역 선택 네비게이션 */
+  .region-nav { background: #fff; border: 1px solid #e1e4e8; border-radius: 10px; padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+  .city-tab-btn { padding: 8px 18px; border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 20px; font-size: 14px; font-weight: 600; color: #444; cursor: pointer; margin-right: 6px; margin-bottom: 8px; transition: 0.2s; }
+  .city-tab-btn.active { background: var(--main-color); color: #fff; border-color: var(--main-color); }
+  
+  .city-content { display: none; margin-top: 20px; border-top: 1px dashed #e1e4e8; padding-top: 18px; }
+  .city-content.active { display: block; }
+  
+  .gu-title { font-size: 15px; font-weight: 700; color: #1f3c88; margin-bottom: 10px; }
+  .dong-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-bottom: 22px; }
+  .dong-link { display: block; padding: 8px 6px; background: #f1f4f9; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; color: #333; text-align: center; text-decoration: none !important; transition: 0.15s; }
+  .dong-link:hover { background: #e3ecff; color: var(--main-color); font-weight: 700; border-color: var(--main-color); }
+  
+  .ft-box { background: var(--dark-bg); color: #b8bbc2; padding: 35px 20px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="border-bottom bg-white py-3">
+    <div class="nt-container d-flex justify-content-between align-items-center px-3">
+      <a href="./index.html" style="font-size: 24px; font-weight: 800; color: #2e64e5; text-decoration: none;">
+        풀림 <span style="font-size:15px; font-weight:normal; color:#666;">POOLIM</span>
+      </a>
+      <a href="tel:0507-1280-3342" class="btn btn-outline-danger btn-sm font-weight-bold">
+        <i class="fa fa-phone mr-1"></i> 고객센터: 0507-1280-3342
+      </a>
+    </div>
+  </header>
+
+  <!-- 메인 히어로 배너 -->
+  <section class="main-hero">
+    <div class="nt-container">
+      <h1 class="h3 font-weight-bold mb-2">대전·청주·충청권 힐링 마사지 & 바디케어 플랫폼</h1>
+      <p class="small mb-0" style="opacity: 0.95;">원하시는 지역의 구·동을 선택하시면 상세 테라피 프로그램 코스와 제휴 정보를 확인하실 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- 지역별 구·동 바로가기 탭 네비게이션 -->
+  <main class="nt-container my-4 px-3">
+    <div class="region-nav">
+      <h2 class="h5 font-weight-bold mb-3"><i class="fa fa-map-marker text-danger mr-1"></i> 지역별 힐링케어 안내</h2>
+      
+      <!-- 탭 버튼 -->
+      <div class="d-flex flex-wrap">
+        <button class="city-tab-btn active" onclick="showTab('tab-daejeon', this)">대전광역시</button>
+        <button class="city-tab-btn" onclick="showTab('tab-cheongju', this)">청주시</button>
+        <button class="city-tab-btn" onclick="showTab('tab-others', this)">세종·충청·전북</button>
+      </div>
+
+      <!-- 1. 대전광역시 전체 구·동 -->
+      <div id="tab-daejeon" class="city-content active">
+        <div class="gu-title">서구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./daejeon/seo-gu/dunsan/index.html">둔산동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/wolpyeong/index.html">월평동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/tanbang/index.html">탄방동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/galma/index.html">갈마동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/mannyeon/index.html">만년동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/goejeong/index.html">괴정동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/yongmun/index.html">용문동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/gajang/index.html">가장동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/nae-dong/index.html">내동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/byeon-dong/index.html">변동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/doma/index.html">도마동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/jeongnim/index.html">정림동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/boksu/index.html">복수동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/gwanjeo/index.html">관저동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/doan/index.html">도안동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/gasuwon/index.html">가수원동</a>
+          <a class="dong-link" href="./daejeon/seo-gu/giseong/index.html">기성동</a>
+        </div>
+
+        <div class="gu-title">유성구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./daejeon/yuseong-gu/bongmyeong/index.html">봉명동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/gung-dong/index.html">궁동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/jangdae/index.html">장대동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/guam/index.html">구암동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/sangdae/index.html">상대동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/wonsinheung/index.html">원신흥동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/noeun/index.html">노은동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/jijok/index.html">지족동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/banseok/index.html">반석동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/sinseong/index.html">신성동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/jeonmin/index.html">전민동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/gwanpyeong/index.html">관평동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/yongsan/index.html">용산동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/tamnip/index.html">탑립동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/deokmyeong/index.html">덕명동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/hakha/index.html">학하동</a>
+          <a class="dong-link" href="./daejeon/yuseong-gu/jinjam/index.html">진잠동</a>
+        </div>
+
+        <div class="gu-title">중구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./daejeon/jung-gu/eunhaeng/index.html">은행동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/seonhwa/index.html">선화동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/daeheung/index.html">대흥동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/oryu/index.html">오류동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/taepyeong/index.html">태평동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/yucheon/index.html">유천동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/munhwa/index.html">문화동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/sanseong/index.html">산성동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/yongdu/index.html">용두동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/mok-dong/index.html">목동</a>
+          <a class="dong-link" href="./daejeon/jung-gu/jungchon/index.html">중촌동</a>
+        </div>
+
+        <div class="gu-title">동구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./daejeon/dong-gu/yongjeon/index.html">용전동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/gayang/index.html">가양동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/hongdo/index.html">홍도동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/seongnam/index.html">성남동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/jayang/index.html">자양동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/panam/index.html">판암동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/sinan/index.html">신안동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/in-dong/index.html">인동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/hyo-dong/index.html">효동</a>
+          <a class="dong-link" href="./daejeon/dong-gu/dae-dong/index.html">대동</a>
+        </div>
+
+        <div class="gu-title">대덕구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./daejeon/daedeok-gu/songchon/index.html">송촌동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/jungni/index.html">중리동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/birae/index.html">비래동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/beop-dong/index.html">법동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/sintanjin/index.html">신탄진동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/seokbong/index.html">석봉동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/moksang/index.html">목상동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/ojeong/index.html">오정동</a>
+          <a class="dong-link" href="./daejeon/daedeok-gu/daehwa/index.html">대화동</a>
+        </div>
+      </div>
+
+      <!-- 2. 청주시 전체 구·동 -->
+      <div id="tab-cheongju" class="city-content">
+        <div class="gu-title">흥덕구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./cheongju/heungdeok-gu/bokdae/index.html">복대동</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/gagyeong/index.html">가경동</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/bongmyeong/index.html">봉명동</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/songjeol/index.html">송절동</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/biha/index.html">비하동</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/gangseo/index.html">강서동</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/osong/index.html">오송읍</a>
+          <a class="dong-link" href="./cheongju/heungdeok-gu/oksan/index.html">옥산면</a>
+        </div>
+
+        <div class="gu-title">서원구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./cheongju/seowon-gu/sannam/index.html">산남동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/bunpyeong/index.html">분평동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/seonghwa/index.html">성화동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/gaesin/index.html">개신동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/sajik/index.html">사직동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/sachang/index.html">사창동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/mochung/index.html">모충동</a>
+          <a class="dong-link" href="./cheongju/seowon-gu/sugok/index.html">수곡동</a>
+        </div>
+
+        <div class="gu-title">청원구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./cheongju/cheongwon-gu/yullyang/index.html">율량동</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/sacheon/index.html">사천동</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/uam/index.html">우암동</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/naedeok/index.html">내덕동</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/jujung/index.html">주중동</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/juseong/index.html">주성동</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/ochang/index.html">오창읍</a>
+          <a class="dong-link" href="./cheongju/cheongwon-gu/naesu/index.html">내수읍</a>
+        </div>
+
+        <div class="gu-title">상당구</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./cheongju/sangdang-gu/yongam/index.html">용암동</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/geumcheon/index.html">금천동</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/yongdam/index.html">용담동</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/tap-dong/index.html">탑동</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/yeongun/index.html">영운동</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/bungmunno/index.html">북문로</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/nammunno/index.html">남문로</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/bangseo/index.html">방서동</a>
+          <a class="dong-link" href="./cheongju/sangdang-gu/dongnam/index.html">동남지구</a>
+        </div>
+      </div>
+
+      <!-- 3. 세종·충청·전북 인근 지역 -->
+      <div id="tab-others" class="city-content">
+        <div class="gu-title">세종 / 충남 / 충북 / 전북</div>
+        <div class="dong-grid">
+          <a class="dong-link" href="./sejong/all/main/index.html">세종특별자치시</a>
+          <a class="dong-link" href="./cheonan/seobuk-gu/all/index.html">천안 서북구</a>
+          <a class="dong-link" href="./cheonan/dongnam-gu/all/index.html">천안 동남구</a>
+          <a class="dong-link" href="./asan/all/main/index.html">아산시</a>
+          <a class="dong-link" href="./gongju/all/main/index.html">공주시</a>
+          <a class="dong-link" href="./gyeryong/all/main/index.html">계룡시</a>
+          <a class="dong-link" href="./nonsan/all/main/index.html">논산시</a>
+          <a class="dong-link" href="./okcheon/all/main/index.html">옥천군</a>
+          <a class="dong-link" href="./geumsan/all/main/index.html">금산군</a>
+          <a class="dong-link" href="./jeonju/wansan-gu/all/index.html">전주 완산구</a>
+          <a class="dong-link" href="./jeonju/deokjin-gu/all/index.html">전주 덕진구</a>
+          <a class="dong-link" href="./iksan/all/main/index.html">익산시</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="ft-box text-center">
+    <div class="nt-container">
+      <p class="mb-1"><strong>풀림(POOLIM)</strong> │ 고객센터: 0507-1280-3342</p>
+      <p class="small text-muted mb-0">본 사이트는 건전한 테라피·스파 정보를 제공하는 플랫폼입니다. &copy; 2026 풀림(POOLIM). All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.city-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.city-tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
