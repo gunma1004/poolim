@@ -7,7 +7,7 @@
 <title>풀림(POOLIM) │ 대전·청주 힐링 스파 & 에스테틱 바디케어 플랫폼</title>
 <meta name="robots" content="index,follow">
 <meta name="title" content="풀림(POOLIM) │ 대전·청주·충청권 테라피 & 바디케어 제휴 정보">
-<meta name="description" content="대전, 청주, 세종, 천안 등 충청·전북 권역의 엄선된 마사지, 스파, 아로마 테라피, 에스테틱 힐링샵 정보를 한눈에 비교하고 확인해보세요.">
+<meta name="description" content="대전, 청주, 세종, 천안 등 충청·전북 권역의 프리미엄 마사지, 스파, 아로마 테라피, 에스테틱 힐링 정보를 한눈에 확인해보세요.">
 <meta name="keywords" content="대전마사지, 청주마사지, 세종마사지, 천안마사지, 아로마테라피, 스웨디시, 스파, 에스테틱, 바디케어, 풀림">
 <link rel="canonical" href="https://poolim.netlify.app/">
 
@@ -26,7 +26,6 @@
   .nt-container { max-width: 1200px; margin: 0 auto; }
   .main-hero { background: linear-gradient(135deg, #1f3c88 0%, #2e64e5 100%); color: #fff; padding: 45px 20px; text-align: center; }
   
-  /* 지역 선택 네비게이션 */
   .region-nav { background: #fff; border: 1px solid #e1e4e8; border-radius: 10px; padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
   .city-tab-btn { padding: 8px 18px; border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 20px; font-size: 14px; font-weight: 600; color: #444; cursor: pointer; margin-right: 6px; margin-bottom: 8px; transition: 0.2s; }
   .city-tab-btn.active { background: var(--main-color); color: #fff; border-color: var(--main-color); }
@@ -34,8 +33,11 @@
   .city-content { display: none; margin-top: 20px; border-top: 1px dashed #e1e4e8; padding-top: 18px; }
   .city-content.active { display: block; }
   
-  .gu-title { font-size: 15px; font-weight: 700; color: #1f3c88; margin-bottom: 10px; }
-  .dong-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-bottom: 22px; }
+  .city-main-link { display: inline-block; font-weight: bold; color: var(--main-color); margin-bottom: 15px; font-size: 15px; text-decoration: none; }
+  .city-main-link:hover { text-decoration: underline; }
+  
+  .gu-title { font-size: 14.5px; font-weight: 700; color: #1f3c88; margin-bottom: 8px; margin-top: 12px; }
+  .dong-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-bottom: 18px; }
   .dong-link { display: block; padding: 8px 6px; background: #f1f4f9; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; color: #333; text-align: center; text-decoration: none !important; transition: 0.15s; }
   .dong-link:hover { background: #e3ecff; color: var(--main-color); font-weight: 700; border-color: var(--main-color); }
   
@@ -44,7 +46,7 @@
 </head>
 <body>
 
-  <!-- 상단 헤더 -->
+  <!-- 헤더 -->
   <header class="border-bottom bg-white py-3">
     <div class="nt-container d-flex justify-content-between align-items-center px-3">
       <a href="./index.html" style="font-size: 24px; font-weight: 800; color: #2e64e5; text-decoration: none;">
@@ -56,18 +58,18 @@
     </div>
   </header>
 
-  <!-- 메인 히어로 배너 (출장 키워드 제외된 청정 메인) -->
+  <!-- 메인 히어로 배너 -->
   <section class="main-hero">
     <div class="nt-container">
       <h1 class="h3 font-weight-bold mb-2">대전·청주·충청권 힐링 마사지 & 바디케어 플랫폼</h1>
-      <p class="small mb-0" style="opacity: 0.95;">원하시는 지역의 구·동을 선택하시면 상세 테라피 프로그램 코스와 제휴 정보를 확인하실 수 있습니다.</p>
+      <p class="small mb-0" style="opacity: 0.95;">원하시는 지역을 선택하시면 S슬림홈케어의 상세 테라피 코스와 예약 요금표를 확인하실 수 있습니다.</p>
     </div>
   </section>
 
   <!-- 지역별 구·동 바로가기 탭 네비게이션 -->
   <main class="nt-container my-4 px-3">
     <div class="region-nav">
-      <h2 class="h5 font-weight-bold mb-3"><i class="fa fa-map-marker text-danger mr-1"></i> 지역별 힐링케어 안내</h2>
+      <h2 class="h5 font-weight-bold mb-3"><i class="fa fa-map-marker text-danger mr-1"></i> 지역별 안내 페이지 바로가기</h2>
       
       <!-- 탭 버튼 -->
       <div class="d-flex flex-wrap">
@@ -76,8 +78,12 @@
         <button class="city-tab-btn" onclick="showTab('tab-others', this)">세종·충청·전북</button>
       </div>
 
-      <!-- 1. 대전광역시 전체 구·동 -->
+      <!-- 1. 대전광역시 전체 및 구·동 -->
       <div id="tab-daejeon" class="city-content active">
+        <div>
+          <a class="city-main-link" href="./daejeon/index.html"><i class="fa fa-arrow-circle-right"></i> 대전광역시 전체 상품 및 코스 요금표 보기</a>
+        </div>
+        
         <div class="gu-title">서구</div>
         <div class="dong-grid">
           <a class="dong-link" href="./daejeon/seo-gu/dunsan/index.html">둔산동</a>
@@ -163,8 +169,12 @@
         </div>
       </div>
 
-      <!-- 2. 청주시 전체 구·동 -->
+      <!-- 2. 청주시 전체 및 구·동 -->
       <div id="tab-cheongju" class="city-content">
+        <div>
+          <a class="city-main-link" href="./cheongju/index.html"><i class="fa fa-arrow-circle-right"></i> 청주시 전체 상품 및 코스 요금표 보기</a>
+        </div>
+        
         <div class="gu-title">흥덕구</div>
         <div class="dong-grid">
           <a class="dong-link" href="./cheongju/heungdeok-gu/bokdae/index.html">복대동</a>
@@ -217,7 +227,7 @@
 
       <!-- 3. 세종·충청·전북 인근 지역 -->
       <div id="tab-others" class="city-content">
-        <div class="gu-title">세종 / 충남 / 충북 / 전북</div>
+        <div class="gu-title">세종 / 충남 / 충북 / 전북 광역별 요금표 바로가기</div>
         <div class="dong-grid">
           <a class="dong-link" href="./sejong/all/main/index.html">세종특별자치시</a>
           <a class="dong-link" href="./cheonan/seobuk-gu/all/index.html">천안 서북구</a>

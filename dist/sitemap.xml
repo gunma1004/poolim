@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://poolim.netlify.app/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/daejeon/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/cheongju/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/sejong/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/cheonan/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/asan/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/gongju/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/gyeryong/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/nonsan/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/okcheon/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/geumsan/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/jeonju/</loc><priority>0.8</priority></url>
+  <url><loc>https://poolim.netlify.app/iksan/</loc><priority>0.8</priority></url>
   <url><loc>https://poolim.netlify.app/daejeon/seo-gu/dunsan/</loc><priority>0.8</priority></url>
   <url><loc>https://poolim.netlify.app/daejeon/seo-gu/wolpyeong/</loc><priority>0.8</priority></url>
   <url><loc>https://poolim.netlify.app/daejeon/seo-gu/tanbang/</loc><priority>0.8</priority></url>

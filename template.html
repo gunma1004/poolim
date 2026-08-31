@@ -48,7 +48,7 @@
   <!-- 헤더 -->
   <header class="border-bottom bg-white py-3">
     <div class="nt-container d-flex justify-content-between align-items-center px-3">
-      <a href="/" style="font-size: 22px; font-weight: 800; color: #2e64e5; text-decoration: none;">
+      <a href="{{HOME_LINK}}" style="font-size: 22px; font-weight: 800; color: #2e64e5; text-decoration: none;">
         풀림 <span style="font-size: 15px; font-weight: normal; color: #666;">POOLIM</span>
       </a>
       <a href="tel:0507-1280-3342" class="btn btn-outline-danger btn-sm font-weight-bold d-none d-sm-inline-block">
@@ -57,7 +57,7 @@
     </div>
   </header>
 
-  <!-- 지역 헤드 배너 -->
+  <!-- 단일 제휴 업체 전용 헤드 배너 -->
   <section class="header-box text-center">
     <div class="nt-container">
       <span class="badge badge-light px-3 py-2 mb-2 font-weight-bold" style="color: #2e64e5;">S슬림홈케어 공식 제휴점</span>
@@ -78,9 +78,8 @@
     <!-- 브레드크럼 -->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb bg-transparent p-0 mb-3" style="font-size: 13px;">
-        <li class="breadcrumb-item"><a href="/" class="text-muted">홈</a></li>
-        <li class="breadcrumb-item"><a href="/{{CITY_SLUG}}/" class="text-muted">{{CITY}}</a></li>
-        <li class="breadcrumb-item"><a href="/{{CITY_SLUG}}/{{DISTRICT_SLUG}}/" class="text-muted">{{DISTRICT}}</a></li>
+        <li class="breadcrumb-item"><a href="{{HOME_LINK}}" class="text-muted">홈</a></li>
+        <li class="breadcrumb-item"><a href="{{CITY_LINK}}" class="text-muted">{{CITY}}</a></li>
         <li class="breadcrumb-item active text-primary font-weight-bold">{{DONG}}</li>
       </ol>
     </nav>

@@ -3,7 +3,6 @@ import json
 import shutil
 import random
 
-# 15개의 타이틀 패턴 (출장과 마사지 분리 회피 구조)
 TITLE_PATTERNS = [
     "{FULL_NAME} 출장 방문 마사지 · 1:1 홈케어 예약 │ S슬림홈케어",
     "{FULL_NAME} 출장 맞춤 힐링 마사지 코스 및 요금표 │ S슬림홈케어",
@@ -22,7 +21,6 @@ TITLE_PATTERNS = [
     "{DISTRICT} {DONG} 출장 힐링 바디 마사지 코스 안내 │ S슬림홈케어"
 ]
 
-# 15개의 디스크립션 패턴 (출장과 마사지 분리 회피 구조)
 DESC_PATTERNS = [
     "{FULL_NAME} 전지역 출장 방문 케어 마사지 전문 S슬림홈케어입니다. 건식, 아로마, VIP스웨디시 코스 시간과 요금 확인. 문의: 0507-1280-3342",
     "{FULL_NAME} 일대 신속한 출장 1:1 홈 테라피 마사지 안내. 지친 하루를 달래주는 맞춤 힐링 케어 프로그램. 예약상담: 0507-1280-3342",
@@ -41,7 +39,6 @@ DESC_PATTERNS = [
     "{DISTRICT} {DONG} 신속 방문 출장 스트레스 해소 마사지. 꼼꼼한 관리와 정성스러운 서비스. 문의: 0507-1280-3342"
 ]
 
-# 1. 템플릿 및 지역 데이터 읽기
 with open('template.html', 'r', encoding='utf-8') as f:
     template = f.read()
 
@@ -51,14 +48,45 @@ with open('regions.json', 'r', encoding='utf-8') as f:
 DIST_DIR = 'dist'
 os.makedirs(DIST_DIR, exist_ok=True)
 
-# 2. 메인 index.html 배포 (출장 키워드 제외된 청정 메인)
+# 1. 메인 index.html 배포
 if os.path.exists('main_index.html'):
     shutil.copy('main_index.html', os.path.join(DIST_DIR, 'index.html'))
-    print("[1/3] 메인 index.html 생성 완료")
+    print("[1/5] 메인 index.html 복사 완료")
 
 sitemap_urls = ['https://poolim.netlify.app/']
 
-# 3. 구·동 상세 페이지 일괄 생성 (15개 타이틀/디스크립션 무작위 배정)
+# 2. 상위 광역 시/도 페이지 생성 (대전 전체, 청주 전체 등)
+city_map = {}
+for r in regions:
+    if r['city_slug'] not in city_map:
+        city_map[r['city_slug']] = r['city']
+
+for c_slug, c_name in city_map.items():
+    full_name = f"{c_name} 전지역"
+    selected_title = random.choice(TITLE_PATTERNS).format(FULL_NAME=full_name, CITY=c_name, DISTRICT="전지역", DONG=c_name)
+    selected_desc = random.choice(DESC_PATTERNS).format(FULL_NAME=full_name, CITY=c_name, DISTRICT="전지역", DONG=c_name)
+    
+    c_html = template
+    c_html = c_html.replace('{{PAGE_TITLE}}', selected_title)
+    c_html = c_html.replace('{{PAGE_DESC}}', selected_desc)
+    c_html = c_html.replace('{{FULL_NAME}}', full_name)
+    c_html = c_html.replace('{{CITY}}', c_name)
+    c_html = c_html.replace('{{CITY_SLUG}}', c_slug)
+    c_html = c_html.replace('{{DISTRICT}}', '전지역')
+    c_html = c_html.replace('{{DONG}}', f"{c_name} 전체")
+    c_html = c_html.replace('{{URL_PATH}}', c_slug)
+    c_html = c_html.replace('{{HOME_LINK}}', '../index.html')
+    c_html = c_html.replace('{{CITY_LINK}}', './index.html')
+    
+    city_dir = os.path.join(DIST_DIR, c_slug)
+    os.makedirs(city_dir, exist_ok=True)
+    with open(os.path.join(city_dir, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(c_html)
+    sitemap_urls.append(f"https://poolim.netlify.app/{c_slug}/")
+
+print(f"[2/5] 총 {len(city_map)}개 상위 광역(시·도 전체) 페이지 빌드 완료")
+
+# 3. 구·동 세부 페이지 생성
 for item in regions:
     city = item['city']
     city_slug = item['city_slug']
@@ -70,7 +98,6 @@ for item in regions:
     full_name = f"{city} {district} {dong}"
     url_path = f"{city_slug}/{district_slug}/{dong_slug}"
     
-    # 15개 패턴 중 무작위 선택 및 텍스트 치환
     selected_title = random.choice(TITLE_PATTERNS).format(FULL_NAME=full_name, CITY=city, DISTRICT=district, DONG=dong)
     selected_desc = random.choice(DESC_PATTERNS).format(FULL_NAME=full_name, CITY=city, DISTRICT=district, DONG=dong)
     
@@ -85,10 +112,8 @@ for item in regions:
     page_html = page_html.replace('{{DONG}}', dong)
     page_html = page_html.replace('{{DONG_SLUG}}', dong_slug)
     page_html = page_html.replace('{{URL_PATH}}', url_path)
-    
-    # 로컬/웹 링크 호환
-    page_html = page_html.replace('href="/"', 'href="../../../index.html"')
-    page_html = page_html.replace('href="https://poolim.netlify.app/"', 'href="../../../index.html"')
+    page_html = page_html.replace('{{HOME_LINK}}', '../../../index.html')
+    page_html = page_html.replace('{{CITY_LINK}}', f'../../../{city_slug}/index.html')
     
     target_dir = os.path.join(DIST_DIR, city_slug, district_slug, dong_slug)
     os.makedirs(target_dir, exist_ok=True)
@@ -99,7 +124,7 @@ for item in regions:
         
     sitemap_urls.append(f"https://poolim.netlify.app/{url_path}/")
 
-print(f"[2/3] 총 {len(regions)}개 구·동 페이지 빌드 완료 (15종 랜덤 패턴 적용)")
+print(f"[3/5] 총 {len(regions)}개 세부 구·동 페이지 빌드 완료")
 
 # 4. sitemap.xml & robots.txt 작성
 sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -113,7 +138,10 @@ with open(os.path.join(DIST_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
 with open(os.path.join(DIST_DIR, 'robots.txt'), 'w', encoding='utf-8') as f:
     f.write("User-agent: *\nAllow: /\nSitemap: https://poolim.netlify.app/sitemap.xml\n")
 
-print("[3/3] sitemap.xml 및 robots.txt 생성 완료")
-# netlify.toml 파일 자동 생성 (BOM 없는 순수 UTF-8)
+print("[4/5] sitemap.xml 및 robots.txt 작성 완료")
+
+# 5. netlify.toml 작성 (BOM 없는 순수 UTF-8)
 with open('netlify.toml', 'w', encoding='utf-8') as f:
     f.write('[build]\n  publish = "dist"\n\n[[redirects]]\n  from = "/*"\n  to = "/index.html"\n  status = 200\n')
+
+print("[5/5] netlify.toml 설정 완료")
