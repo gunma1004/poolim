@@ -44,7 +44,7 @@ CITY_DESC_PATTERNS = [
     "지친 일상의 피로를 말끔히 풀어드리는 {CITY} 전문 출장 마사지 서비스. 검증된 전문 테라피스트의 정성스런 1:1 맞춤 케어. "
 ]
 
-# 3. [추가] 요청하신 형식을 기반으로 한 순차적·랜덤 조합용 키워드 패턴 리스트
+# 3. 새로운 주소 체계에 맞춘 동별 홈스파·홈타이 패턴 리스트
 EXTRA_TITLE_PATTERNS = [
     "{DONG} 홈스파 마사지·홈타이 │ {CITY} {DISTRICT} 안마 업체 S슬림홈타이",
     "{DONG} 프리미엄 홈타이 마사지 · 힐링 홈스파 예약 │ {CITY} {DISTRICT} 스파 샵 S슬림홈케어",
@@ -53,7 +53,7 @@ EXTRA_TITLE_PATTERNS = [
     "{DONG} 24시 안심 방문 홈스파 및 홈타이 테라피 │ {CITY} {DISTRICT} 전문 S슬림홈타이",
     "{DONG} 프라이빗 힐링 홈타이 · 맞춤 홈스파 │ {CITY}{DISTRICT} 마사지 S슬림홈케어",
     "{DONG} 스페셜 바디케어 홈스파 및 홈타이 │ {DISTRICT} {CITY} 업체 S슬림홈타이",
-    "{DONG} 야간 심야 홈타이 마사지 · 힐링 홈스파 │ {CITY} {DISTRICT} 업체S슬림홈케어"
+    "{DONG} 야간 심야 홈타이 마사지 · 힐링 홈ส파 │ {CITY} {DISTRICT} 업체 S슬림홈케어"
 ]
 
 EXTRA_DESC_PATTERNS = [
@@ -148,30 +148,28 @@ for item in regions:
     target_dir = os.path.join(DIST_DIR, city_slug, district_slug, dong_slug)
     os.makedirs(target_dir, exist_ok=True)
     
-    target_file = os.path.join(target_dir, 'index.html')
-    with open(target_file, 'w', encoding='utf-8') as f:
+    with open(os.path.join(target_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(page_html)
         
     sitemap_urls.append(f"https://poolim.netlify.app/{url_path}/")
 
 print(f"[3/5] 총 {len(regions)}개 세부 구·동 페이지 빌드 완료")
 
-# 4. [추가] 대전(daejeon)과 청주(cheongju) 동 이름만 뽑아서 홈스파·홈타이 랜덤형 추가 페이지 생성하기
-# 경로 형식: /daejeon/dunsan-home/
+# 4. [요청 반영] 대전·청주 지역에 대해 `/daejeon/massge/gayang/` 형태의 새로운 독립 페이지 생성
 extra_dong_count = 0
 target_cities = ['daejeon', 'cheongju']
 
 for item in regions:
     if item['city_slug'] in target_cities:
-        city = item['city']
+        city = clean_city_name(item['city'])
         city_slug = item['city_slug']
         district = item['district']
         dong = item['dong']
         dong_slug = item['dong_slug']
         
-        extra_slug = f"{city_slug}/{dong_slug}-home"
+        # 요청하신 주소 구조: {city_slug}/massge/{dong_slug}
+        extra_slug = f"{city_slug}/massge/{dong_slug}"
         
-        # 홈스파/홈타이 전용 패턴에서 랜덤하게 선택 및 포맷팅
         extra_title = random.choice(EXTRA_TITLE_PATTERNS).format(CITY=city, DISTRICT=district, DONG=dong)
         extra_desc = random.choice(EXTRA_DESC_PATTERNS).format(CITY=city, DISTRICT=district, DONG=dong)
         
@@ -184,10 +182,11 @@ for item in regions:
         extra_html = extra_html.replace('{{DISTRICT}}', district)
         extra_html = extra_html.replace('{{DONG}}', dong)
         extra_html = extra_html.replace('{{URL_PATH}}', extra_slug)
-        extra_html = extra_html.replace('{{HOME_LINK}}', '../../index.html')
+        extra_html = extra_html.replace('{{HOME_LINK}}', '../../../index.html') # 상위 경로 조정
         extra_html = extra_html.replace('{{CITY_LINK}}', f'../../{city_slug}/index.html')
         
-        target_dir = os.path.join(DIST_DIR, city_slug, f"{dong_slug}-home")
+        # dist/daejeon/massge/gayang/ 폴더 생성
+        target_dir = os.path.join(DIST_DIR, city_slug, 'massge', dong_slug)
         os.makedirs(target_dir, exist_ok=True)
         
         with open(os.path.join(target_dir, 'index.html'), 'w', encoding='utf-8') as f:
@@ -196,7 +195,7 @@ for item in regions:
         sitemap_urls.append(f"https://poolim.netlify.app/{extra_slug}/")
         extra_dong_count += 1
 
-print(f"[4/5] 대전·청주 홈스파·홈타이 랜덤형 추가 페이지 {extra_dong_count}개 생성 완료")
+print(f"[4/5] 대전·청주 massge 경로 신규 동별 페이지 {extra_dong_count}개 생성 완료")
 
 # 5. sitemap.xml & robots.txt 작성
 sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -212,6 +211,6 @@ with open(os.path.join(DIST_DIR, 'robots.txt'), 'w', encoding='utf-8') as f:
 
 print("[5/5] sitemap.xml 및 robots.txt 작성 완료")
 
-# 6. netlify.toml 작성 (BOM 없는 순수 UTF-8)
+# 6. netlify.toml 작성
 with open('netlify.toml', 'w', encoding='utf-8') as f:
     f.write('[build]\n  publish = "dist"\n\n[[redirects]]\n  from = "/*"\n  to = "/index.html"\n  status = 200\n')
