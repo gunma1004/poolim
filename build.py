@@ -3,6 +3,7 @@ import json
 import shutil
 import random
 
+# 1. 기존 구·동 페이지용 패턴 (기존 유지)
 TITLE_PATTERNS = [
     "{FULL_NAME} 출장 방문 마사지 · 1:1 홈케어 예약 │ S슬림홈케어",
     "{FULL_NAME} 출장 맞춤 힐링 마사지 코스 및 요금표 │ S슬림홈케어",
@@ -26,17 +27,40 @@ DESC_PATTERNS = [
     "{FULL_NAME} 일대 신속한 출장 1:1 홈 테라피 마사지 안내. 지친 하루를 달래주는 맞춤 힐링 케어 프로그램. 예약상담: 0507-1280-3342",
     "{FULL_NAME} 자택/오피스텔 출장 맞춤 릴렉싱 마사지 S슬림홈케어. 건식 지압부터 스페셜 아로마까지 완벽 케어. 문의: 0507-1280-3342",
     "{FULL_NAME} 어디서나 편안하게 받는 출장 전지역 힐링 마사지 서비스. 투명한 정찰제 가격표와 신속 배차. 예약: 0507-1280-3342",
-    "{FULL_NAME} 일대 프리미엄 출장 전문 바디 마사지 예약 안내. 전문 힐러의 정성스러운 1:1 방문 관리. 상담: 0507-1280-3342",
-    "{DONG} 인근 출장 프리미엄 바디 마사지 코스별 요금표 제공. 편안한 나만의 공간에서 즐기는 힐링. 상담: 0507-1280-3342",
-    "{DONG} 지역 신속 방문 출장 1:1 맞춤 마사지 S슬림홈케어. 피로 회복을 위한 다양한 테라피 코스. 문의: 0507-1280-3342",
-    "{DONG} 전지역 안심 출장 방문 힐링 마사지 안내. 건식, 아로마, 스웨디시 정찰제 코스 운영. 전화예약: 0507-1280-3342",
-    "{DONG} 주민을 위한 출장 맞춤형 홈케어 마사지 프로그램. 뭉친 근육을 부드럽게 풀어드립니다. 상담: 0507-1280-3342",
-    "{DONG} 일대 빠른 도착 출장 힐링 테라피 마사지. 호텔/자택 1:1 맞춤 방문 힐링 서비스. 예약: 0507-1280-3342",
-    "{DISTRICT} {DONG} 출장 전문 힐링 마사지 서비스. 투명한 정찰제 코스 요금과 신속한 예약 안내: 0507-1280-3342",
-    "{DISTRICT} {DONG} 일대 출장 방문 릴렉스 마사지 제휴점. 개운한 건식부터 촉촉한 아로마까지. 문의: 0507-1280-3342",
-    "{DISTRICT} {DONG} 중심 출장 프라이빗 힐링 마사지 S슬림홈케어. 지친 일상 속 특별한 재충전. 상담: 0507-1280-3342",
-    "{DISTRICT} {DONG} 전지역 출장 맞춤 홈바디 마사지 프로그램. 쾌적한 1:1 전담 케어 시스템. 예약: 0507-1280-3342",
-    "{DISTRICT} {DONG} 신속 방문 출장 스트레스 해소 마사지. 꼼꼼한 관리와 정성스러운 서비스. 문의: 0507-1280-3342"
+    "{FULL_NAME} 일대 프리미엄 출장 전문 바디 마사지 예약 안내. 전문 힐러의 정성스러운 1:1 방문 관리. 상담: 0507-1280-3342"
+]
+
+# 2. 상위 '시' 페이지 전용 패턴
+CITY_TITLE_PATTERNS = [
+    "{CITY} 전지역 홈케어 마사지 · 1:1 방문 힐링 센터 │ S슬림홈케어",
+    "{CITY} 전지역 맞춤 마사지 코스 및 요금 안내 │ S슬림홈케어",
+    "{CITY} 프리미엄 방문 마사지 서비스 총정리 │ S슬림홈케어",
+    "{CITY} 전지역 24시 안심 테라피 마사지 예약 │ S슬림홈케어"
+]
+
+CITY_DESC_PATTERNS = [
+    "{CITY} 전지역 어디든 신속하게 찾아가는 프리미엄 출장 마사지 S슬림홈케어입니다. 건식, 아로마, 스웨디시 전문 1:1 케어. ",
+    "{CITY} 일대 자택, 오피스텔, 호텔 등 편안한 공간에서 즐기는 맞춤형 출장 힐링 마사지. 투명한 정찰제와 실시간 예약 시스템. ",
+    "지친 일상의 피로를 말끔히 풀어드리는 {CITY} 전문 출장 마사지 서비스. 검증된 전문 테라피스트의 정성스런 1:1 맞춤 케어. "
+]
+
+# 3. [추가] 요청하신 형식을 기반으로 한 순차적·랜덤 조합용 키워드 패턴 리스트
+EXTRA_TITLE_PATTERNS = [
+    "{DONG} 홈스파 마사지·홈타이 │ {CITY} {DISTRICT} 안마 업체 S슬림홈타이",
+    "{DONG} 프리미엄 홈타이 마사지 · 힐링 홈스파 예약 │ {CITY} {DISTRICT} 스파 샵 S슬림홈케어",
+    "{DONG} 맞춤형 홈스파 마사지 및 아로마 홈타이 │ {DISTRICT} {CITY} 마사지 S슬림홈타이",
+    "{DONG} 릴렉싱 스웨디시 마사지 서비스 │ {CITY} {DISTRICT} 마사지 센터 S슬림홈케어",
+    "{DONG} 24시 안심 방문 홈스파 및 홈타이 테라피 │ {CITY} {DISTRICT} 전문 S슬림홈타이",
+    "{DONG} 프라이빗 힐링 홈타이 · 맞춤 홈스파 │ {CITY}{DISTRICT} 마사지 S슬림홈케어",
+    "{DONG} 스페셜 바디케어 홈스파 및 홈타이 │ {DISTRICT} {CITY} 업체 S슬림홈타이",
+    "{DONG} 야간 심야 홈타이 마사지 · 힐링 홈스파 │ {CITY} {DISTRICT} 업체S슬림홈케어"
+]
+
+EXTRA_DESC_PATTERNS = [
+    "{CITY} {DISTRICT} {DONG} 인근 신속 방문 출장 마사지 및 홈타이 마사지 서비스. 1:1 맞춤형 힐링 테라피 정찰제 요금 안내. ",
+    "{CITY} 전지역 {DONG} 자택, 오피스텔, 호텔 전문 출장 마사지. 지친 일상의 피로를 풀어드리는 프리미엄 케어. ",
+    "{DISTRICT} {DONG} 중심 24시간 언제나 편안하게 이용할 수 있는 출장 마사지 및 홈타이. 검증된 전문 관리사 배차. ",
+    "{CITY} {DONG} 맞춤형 출장 방문 마사지 및 힐링 홈스파 전문 S슬림홈타이/홈케어. 뭉친 근육을 개운하게 케어해드립니다. "
 ]
 
 with open('template.html', 'r', encoding='utf-8') as f:
@@ -55,16 +79,22 @@ if os.path.exists('main_index.html'):
 
 sitemap_urls = ['https://poolim.netlify.app/']
 
-# 2. 상위 광역 시/도 페이지 생성 (대전 전체, 청주 전체 등)
+def clean_city_name(city_str):
+    for suffix in ["광역시", "특별자치시", "시"]:
+        if city_str.endswith(suffix):
+            return city_str[:-len(suffix)]
+    return city_str
+
+# 2. 상위 광역 시/도 페이지 생성
 city_map = {}
 for r in regions:
     if r['city_slug'] not in city_map:
-        city_map[r['city_slug']] = r['city']
+        city_map[r['city_slug']] = clean_city_name(r['city'])
 
 for c_slug, c_name in city_map.items():
     full_name = f"{c_name} 전지역"
-    selected_title = random.choice(TITLE_PATTERNS).format(FULL_NAME=full_name, CITY=c_name, DISTRICT="전지역", DONG=c_name)
-    selected_desc = random.choice(DESC_PATTERNS).format(FULL_NAME=full_name, CITY=c_name, DISTRICT="전지역", DONG=c_name)
+    selected_title = random.choice(CITY_TITLE_PATTERNS).format(CITY=c_name)
+    selected_desc = random.choice(CITY_DESC_PATTERNS).format(CITY=c_name)
     
     c_html = template
     c_html = c_html.replace('{{PAGE_TITLE}}', selected_title)
@@ -84,9 +114,9 @@ for c_slug, c_name in city_map.items():
         f.write(c_html)
     sitemap_urls.append(f"https://poolim.netlify.app/{c_slug}/")
 
-print(f"[2/5] 총 {len(city_map)}개 상위 광역(시·도 전체) 페이지 빌드 완료")
+print(f"[2/5] 총 {len(city_map)}개 상위 광역 페이지 빌드 완료")
 
-# 3. 구·동 세부 페이지 생성
+# 3. 구·동 세부 페이지 생성 (기존 페이지 그대로 유지)
 for item in regions:
     city = item['city']
     city_slug = item['city_slug']
@@ -126,7 +156,49 @@ for item in regions:
 
 print(f"[3/5] 총 {len(regions)}개 세부 구·동 페이지 빌드 완료")
 
-# 4. sitemap.xml & robots.txt 작성
+# 4. [추가] 대전(daejeon)과 청주(cheongju) 동 이름만 뽑아서 홈스파·홈타이 랜덤형 추가 페이지 생성하기
+# 경로 형식: /daejeon/dunsan-home/
+extra_dong_count = 0
+target_cities = ['daejeon', 'cheongju']
+
+for item in regions:
+    if item['city_slug'] in target_cities:
+        city = item['city']
+        city_slug = item['city_slug']
+        district = item['district']
+        dong = item['dong']
+        dong_slug = item['dong_slug']
+        
+        extra_slug = f"{city_slug}/{dong_slug}-home"
+        
+        # 홈스파/홈타이 전용 패턴에서 랜덤하게 선택 및 포맷팅
+        extra_title = random.choice(EXTRA_TITLE_PATTERNS).format(CITY=city, DISTRICT=district, DONG=dong)
+        extra_desc = random.choice(EXTRA_DESC_PATTERNS).format(CITY=city, DISTRICT=district, DONG=dong)
+        
+        extra_html = template
+        extra_html = extra_html.replace('{{PAGE_TITLE}}', extra_title)
+        extra_html = extra_html.replace('{{PAGE_DESC}}', extra_desc)
+        extra_html = extra_html.replace('{{FULL_NAME}}', f"{city} {district} {dong}")
+        extra_html = extra_html.replace('{{CITY}}', city)
+        extra_html = extra_html.replace('{{CITY_SLUG}}', city_slug)
+        extra_html = extra_html.replace('{{DISTRICT}}', district)
+        extra_html = extra_html.replace('{{DONG}}', dong)
+        extra_html = extra_html.replace('{{URL_PATH}}', extra_slug)
+        extra_html = extra_html.replace('{{HOME_LINK}}', '../../index.html')
+        extra_html = extra_html.replace('{{CITY_LINK}}', f'../../{city_slug}/index.html')
+        
+        target_dir = os.path.join(DIST_DIR, city_slug, f"{dong_slug}-home")
+        os.makedirs(target_dir, exist_ok=True)
+        
+        with open(os.path.join(target_dir, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(extra_html)
+            
+        sitemap_urls.append(f"https://poolim.netlify.app/{extra_slug}/")
+        extra_dong_count += 1
+
+print(f"[4/5] 대전·청주 홈스파·홈타이 랜덤형 추가 페이지 {extra_dong_count}개 생성 완료")
+
+# 5. sitemap.xml & robots.txt 작성
 sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in sitemap_urls:
     sitemap_content.append(f'  <url><loc>{u}</loc><priority>0.8</priority></url>')
@@ -138,10 +210,8 @@ with open(os.path.join(DIST_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
 with open(os.path.join(DIST_DIR, 'robots.txt'), 'w', encoding='utf-8') as f:
     f.write("User-agent: *\nAllow: /\nSitemap: https://poolim.netlify.app/sitemap.xml\n")
 
-print("[4/5] sitemap.xml 및 robots.txt 작성 완료")
+print("[5/5] sitemap.xml 및 robots.txt 작성 완료")
 
-# 5. netlify.toml 작성 (BOM 없는 순수 UTF-8)
+# 6. netlify.toml 작성 (BOM 없는 순수 UTF-8)
 with open('netlify.toml', 'w', encoding='utf-8') as f:
     f.write('[build]\n  publish = "dist"\n\n[[redirects]]\n  from = "/*"\n  to = "/index.html"\n  status = 200\n')
-
-print("[5/5] netlify.toml 설정 완료")
