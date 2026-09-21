@@ -50,10 +50,10 @@ EXTRA_TITLE_PATTERNS = [
     "{DONG} 프리미엄 홈타이 마사지 · 힐링 홈스파 예약 │ {CITY} {DISTRICT} 스파 샵 S슬림홈케어",
     "{DONG} 맞춤형 홈스파 마사지 및 아로마 홈타이 │ {DISTRICT} {CITY} 마사지 S슬림홈타이",
     "{DONG} 릴렉싱 스웨디시 마사지 서비스 │ {CITY} {DISTRICT} 마사지 센터 S슬림홈케어",
-    "{DONG} 24시 안심 방문 홈스파 및 홈타이 테라피 │ {CITY} {DISTRICT} 전문 S슬림홈타이",
-    "{DONG} 프라이빗 힐링 홈타이 · 맞춤 홈스파 │ {CITY}{DISTRICT} 마사지 S슬림홈케어",
-    "{DONG} 스페셜 바디케어 홈스파 및 홈타이 │ {DISTRICT} {CITY} 업체 S슬림홈타이",
-    "{DONG} 야간 심야 홈타이 마사지 · 힐링 홈ส파 │ {CITY} {DISTRICT} 업체 S슬림홈케어"
+    "{DONG} 24시 안심 방문 스파 및 마사지 테라피 │ {CITY} {DISTRICT} 전문 S슬림홈타이",
+    "{DONG} 프라이빗 힐링 마사지 · 맞춤 홈스파 │ {CITY}{DISTRICT} 마사지 S슬림홈케어",
+    "{DONG} 스페셜 바디케어 테라피 마사지 │ {DISTRICT} {CITY} 업체 S슬림홈타이",
+    "{DONG} 야간 심야 홈타이 마사지 · 힐링 홈스파 │ {CITY} {DISTRICT} 업체 S슬림홈케어"
 ]
 
 EXTRA_DESC_PATTERNS = [
